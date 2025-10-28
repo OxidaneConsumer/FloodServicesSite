@@ -10,10 +10,10 @@
 <body>
 
   <!-- affected user form -->
-  <div id="formContainer" class="hidden">
+  <div id="formContainer">
     <h2>Enter the following details to request assistance:</h2>
     <input type="text" required id="name" placeholder="Full Name" />
-    <select id="location">
+    <select id="location" required>
   <option value="">Select Province</option>
   <option value="Punjab">Punjab</option>
   <option value="Sindh">Sindh</option>
@@ -31,7 +31,7 @@
   </div>
 
   <!-- volunteer view -->
-  <div id="volunteerContainer" class="hidden">
+  <div id="volunteerContainer">
     <h2>Requests from users: </h2>
     <ul id="requests"></ul>
   </div>

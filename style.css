@@ -58,7 +58,7 @@ li {
   cursor: pointer;
 }
 
-#formContainer, #volunteerContainer, #roleContainer {
+#volunteerContainer, #roleContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,6 +68,9 @@ li {
   margin-bottom: 40px;
 }
 
-.hidden { 
-display: none; 
+select {
+  width: 300px;     /* width */
+  height: 45px;     /* height */
+  font-size: 16px;  /* text bigger */
+  padding: 8px;     /* spacing inside */
 }

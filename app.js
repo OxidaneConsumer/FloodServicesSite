@@ -42,7 +42,7 @@ let userName = "";
 // -------------------
 submitBtn.addEventListener("click", () => {
   const name = nameInput.value.trim();
-  const location = document.querySelector('input[name="province"]:checked')?.value || "";
+  const location = document.getElementById("province").value || "";
   const need = needInput.value.trim();
 
   if (!name || !need) {
