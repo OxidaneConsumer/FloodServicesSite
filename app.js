@@ -91,21 +91,21 @@ onValue(ref(db, "requests/"), (snapshot) => {
 
     // volunteer control buttons
     const inProgressBtn = document.createElement("button");
-    inProgressBtn.textContent = "Mark In Progress";
-    inProgressBtn.style.margin = "5px";
-    inProgressBtn.addEventListener("click", () => {
-      update(ref(db, "requests/" + child.key), { status: "In Progress" });
-    });
+inProgressBtn.textContent = "Mark In Progress";
+inProgressBtn.style.margin = "5px";
+inProgressBtn.addEventListener("click", () => {
+  update(ref(db, "requests/" + child.key), { status: "In Progress" });
+});
 
-    const completedBtn = document.createElement("button");
-    completedBtn.textContent = "Mark Completed";
-    completedBtn.style.margin = "5px";
-    completedBtn.addEventListener("click", () => {
-      update(ref(db, "requests/" + child.key), { status: "Completed" });
-    });
+const completedBtn = document.createElement("button");
+completedBtn.textContent = "Mark Completed";
+completedBtn.style.margin = "5px";
+completedBtn.addEventListener("click", () => {
+  update(ref(db, "requests/" + child.key), { status: "Completed" });
+});
 
-    li.appendChild(inProgressBtn);
-    li.appendChild(completedBtn);
+li.appendChild(inProgressBtn);
+li.appendChild(completedBtn);
     requestsList.appendChild(li);
   });
 });
