@@ -1,4 +1,4 @@
-  const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyDBevOdYoCirgpedIlOG6mu2ZUwtzCCYuo",
   authDomain: "flood-services-site.firebaseapp.com",
   databaseURL: "https://flood-services-site-default-rtdb.asia-southeast1.firebasedatabase.app/",

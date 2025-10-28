@@ -55,7 +55,6 @@ li {
   border-radius: 10px;
   padding: 12px;
   margin-bottom: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   cursor: pointer;
 }
 
@@ -66,8 +65,9 @@ li {
   background: white;
   padding: 20px 30px;
   border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   margin-bottom: 40px;
 }
 
-.hidden { display: none; }
+.hidden { 
+display: none; 
+}

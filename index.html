@@ -8,30 +8,26 @@
 </head>
 
 <body>
-  <div id="roleContainer">
-    <h2>Are you affected by any natural disaster OR are you a volunteer looking to provide services?</h2>
-    <button id="affectedBtn">Affected: Looking to receive services. </button>
-    <button id="volunteerBtn">Volunteer: Looking to provide services.</button>
-  </div>
 
-  <!-- questioning stuff (affected only) -->
+  <!-- affected user form -->
   <div id="formContainer" class="hidden">
-    <h2>Enter your details to request assistance:</h2>
-    <input type="text" required id="name" placeholder="Full Name " />
-    <input type="text" id="location" placeholder="Province you are from " />
-    <input type="text" required id="need" placeholder="Elaborate on the help you need " />
+    <h2>Enter the following details to request assistance:</h2>
+    <input type="text" required id="name" placeholder="Full Name" />
+    <input type="text" id="location" placeholder="Province you are from" />
+    <input type="text" required id="need" placeholder="Elaborate on the help you need" />
     <button id="submit">SUBMIT REQUEST</button>
 
-    <h2>Your Submitted Requests:</h2>
+    <h2>Your requests:</h2>
     <ul id="myRequests"></ul>
   </div>
 
-  <!-- request list (volunteer only) -->
+  <!-- volunteer view -->
   <div id="volunteerContainer" class="hidden">
-    <h2>Requests to Help With: </h2>
+    <h2>Requests from users: </h2>
     <ul id="requests"></ul>
   </div>
 
+  <!-- Put script at the end so DOM is fully loaded -->
   <script type="module" src="app.js"></script>
 </body>
 </html>

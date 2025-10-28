@@ -1,7 +1,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import { getDatabase, ref, push, onValue, update } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
 
+// -------------------
 // Firebase config
+// -------------------
 const firebaseConfig = {
   apiKey: "AIzaSyDBevOdYoCirgpedIlOG6mu2ZUwtzCCYuo",
   authDomain: "flood-services-site.firebaseapp.com",
@@ -15,10 +17,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const roleContainer = document.getElementById("roleContainer");
-const affectedBtn = document.getElementById("affectedBtn");
-const volunteerBtn = document.getElementById("volunteerBtn");
-
+// -------------------
+// DOM elements
+// -------------------
 const formContainer = document.getElementById("formContainer");
 const volunteerContainer = document.getElementById("volunteerContainer");
 
@@ -30,37 +31,28 @@ const submitBtn = document.getElementById("submit");
 const myRequestsList = document.getElementById("myRequests");
 const requestsList = document.getElementById("requests");
 
+// -------------------
+// State
+// -------------------
 let userRole = null;
 let userName = "";
 
-// handling which role was picked
-affectedBtn.addEventListener("click", () => {
-  userRole = "affected";
-  roleContainer.classList.add("hidden");
-  formContainer.classList.remove("hidden");
-});
-
-volunteerBtn.addEventListener("click", () => {
-  userRole = "volunteer";
-  roleContainer.classList.add("hidden");
-  volunteerContainer.classList.remove("hidden");
-  loadRequestsForVolunteers();
-});
-
-// new request (victim only)
+// -------------------
+// Submit new request (affected only)
+// -------------------
 submitBtn.addEventListener("click", () => {
   const name = nameInput.value.trim();
   const location = locationInput.value.trim();
   const need = needInput.value.trim();
 
   if (!name || !need) {
-    alert("You MUST enter both name and help needed");
+    alert("You must enter BOTH name and help needed");
     return;
   }
 
   userName = name;
 
-  push(ref(db, "requests/"), { name, location, need, status: "Pending" });
+  push(ref(db, "requests/"), { name, location, need, status: "Awaiting services" });
 
   alert("Request submitted successfully!");
   nameInput.value = "";
@@ -70,32 +62,36 @@ submitBtn.addEventListener("click", () => {
   loadMyRequests(userName);
 });
 
+// -------------------
 // Load affected user's own requests
+// -------------------
 function loadMyRequests(name) {
+  if (!name) return; // don't run if name not set
+
   onValue(ref(db, "requests/"), (snapshot) => {
     myRequestsList.innerHTML = "";
     snapshot.forEach((child) => {
       const data = child.val();
       if (data.name === name) {
         const li = document.createElement("li");
-        li.textContent = `${data.name} (${data.location}), (${data.need}): [${data.status}]`;
+        li.textContent = `${data.name} (${data.location}): ${data.need} [${data.status}]`;
         myRequestsList.appendChild(li);
       }
     });
   });
 }
 
+// -------------------
 // Load requests for volunteers
+// -------------------
 function loadRequestsForVolunteers() {
   onValue(ref(db, "requests/"), (snapshot) => {
     requestsList.innerHTML = "";
     snapshot.forEach((child) => {
       const data = child.val();
       const li = document.createElement("li");
-
       li.textContent = `${data.name} (${data.location}): ${data.need} [${data.status}]`;
 
-      // Only allow volunteers to interact
       if (userRole === "volunteer") {
         const inProgressBtn = document.createElement("button");
         inProgressBtn.textContent = "Mark In Progress";
