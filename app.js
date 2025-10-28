@@ -42,14 +42,13 @@ let userName = "";
 // -------------------
 submitBtn.addEventListener("click", () => {
   const name = nameInput.value.trim();
-  const location = locationInput.value.trim();
+  const location = document.querySelector('input[name="province"]:checked')?.value || "";
   const need = needInput.value.trim();
 
   if (!name || !need) {
-    alert("You must enter BOTH name and help needed");
+    alert("You MUST enter both name and help needed");
     return;
   }
-
   userName = name;
 
   push(ref(db, "requests/"), { name, location, need, status: "Awaiting services" });

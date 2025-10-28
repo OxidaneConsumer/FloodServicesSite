@@ -13,7 +13,16 @@
   <div id="formContainer" class="hidden">
     <h2>Enter the following details to request assistance:</h2>
     <input type="text" required id="name" placeholder="Full Name" />
-    <input type="text" id="location" placeholder="Province you are from" />
+    <select id="location">
+  <option value="">Select Province</option>
+  <option value="Punjab">Punjab</option>
+  <option value="Sindh">Sindh</option>
+  <option value="Khyber Pakhtunkhwa">Khyber Pakhtunkhwa</option>
+  <option value="Balochistan">Balochistan</option>
+  <option value="Gilgit-Baltistan">Gilgit-Baltistan</option>
+  <option value="Azad Kashmir">Azad Kashmir</option>
+  <option value="Islamabad">Islamabad</option>
+</select>
     <input type="text" required id="need" placeholder="Elaborate on the help you need" />
     <button id="submit">SUBMIT REQUEST</button>
 
