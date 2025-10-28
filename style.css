@@ -69,8 +69,8 @@ li {
 }
 
 select {
-  width: 1000px;     /* width */
-  height: 120px;     /* height */
-  font-size: 25px;  /* text bigger */
+  width: 3000px;     /* width */
+  height: 350px;     /* height */
+  font-size: 100px;  /* text bigger */
   padding: 8px;     /* spacing inside */
 }
