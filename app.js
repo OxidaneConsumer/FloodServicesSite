@@ -42,8 +42,8 @@ let userName = "";
 // -------------------
 submitBtn.addEventListener("click", () => {
   const name = nameInput.value.trim();
-  const location = document.getElementById("province").value || "";
   const need = needInput.value.trim();
+  const location = document.getElementById("province").value || "";
 
   if (!name || !need) {
     alert("You MUST enter both name and help needed");
