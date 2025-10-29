@@ -66,15 +66,22 @@ submitBtn.addEventListener("click", () => {
 // Load user's own requests
 // -------------------
 function loadMyRequests(name) {
-  onValue(ref(db, "requests/"), (snapshot) => {
-    myRequestsList.innerHTML = "";
+  const requestsRef = ref(db, "requests/");
+  onValue(requestsRef, (snapshot) => {
+    const requests = [];
     snapshot.forEach((child) => {
       const data = child.val();
       if (data.name === name) {
-        const li = document.createElement("li");
-        li.textContent = `${data.name} (${data.location}): ${data.need} | Contact: ${data.contact}`;
-        myRequestsList.appendChild(li);
+        requests.push(data);
       }
+    });
+
+    // Now rebuild list all at once
+    myRequestsList.innerHTML = "";
+    requests.forEach((data) => {
+      const li = document.createElement("li");
+      li.textContent = `${data.name} (${data.location}): ${data.need} | Contact: ${data.contact}`;
+      myRequestsList.appendChild(li);
     });
   });
 }
