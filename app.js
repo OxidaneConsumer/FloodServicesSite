@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getDatabase, ref, push, onValue, update } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
 
 // -------------------
 // Firebase config
@@ -7,7 +7,7 @@ import { getDatabase, ref, push, onValue, update } from "https://www.gstatic.com
 const firebaseConfig = {
   apiKey: "AIzaSyDBevOdYoCirgpedIlOG6mu2ZUwtzCCYuo",
   authDomain: "flood-services-site.firebaseapp.com",
-  databaseURL: "https://flood-services-site-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  databaseURL: "https://flood-services-site-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "flood-services-site",
   storageBucket: "flood-services-site.firebasestorage.app",
   messagingSenderId: "754979790505",
@@ -23,14 +23,11 @@ const db = getDatabase(app);
 const nameInput = document.getElementById("name");
 const locationInput = document.getElementById("location");
 const needInput = document.getElementById("need");
+const contactInput = document.getElementById("contact");
 const submitBtn = document.getElementById("submit");
+
 const myRequestsList = document.getElementById("myRequests");
 const requestsList = document.getElementById("requests");
-
-// -------------------
-// State
-// -------------------
-let userName = "";
 
 // -------------------
 // Submit new request
@@ -39,31 +36,33 @@ submitBtn.addEventListener("click", () => {
   const name = nameInput.value.trim();
   const need = needInput.value.trim();
   const location = locationInput.value;
+  const contact = contactInput.value.trim();
 
   if (!name || !need || !location) {
-    alert("Please fill in all fields before submitting.");
+    alert("Please fill in all required fields.");
     return;
   }
 
-  userName = name;
-
-  push(ref(db, "requests/"), {
+  const requestData = {
     name,
     location,
     need,
-    status: "Awaiting services"
-  });
+    contact: contact || "Not provided",
+  };
+
+  push(ref(db, "requests/"), requestData);
 
   alert("Request submitted successfully!");
   nameInput.value = "";
-  locationInput.value = "";
   needInput.value = "";
+  locationInput.value = "";
+  contactInput.value = "";
 
-  loadMyRequests(userName);
+  loadMyRequests(name);
 });
 
 // -------------------
-// Load affected user's own requests
+// Load user's own requests
 // -------------------
 function loadMyRequests(name) {
   onValue(ref(db, "requests/"), (snapshot) => {
@@ -72,7 +71,7 @@ function loadMyRequests(name) {
       const data = child.val();
       if (data.name === name) {
         const li = document.createElement("li");
-        li.textContent = `${data.name} (${data.location}): ${data.need} [${data.status}]`;
+        li.textContent = `${data.name} (${data.location}): ${data.need} | Contact: ${data.contact}`;
         myRequestsList.appendChild(li);
       }
     });
@@ -80,32 +79,19 @@ function loadMyRequests(name) {
 }
 
 // -------------------
-// Load requests for volunteers (always visible for now)
+// Load requests for volunteers
 // -------------------
-onValue(ref(db, "requests/"), (snapshot) => {
-  requestsList.innerHTML = "";
-  snapshot.forEach((child) => {
-    const data = child.val();
-    const li = document.createElement("li");
-    li.textContent = `${data.name} (${data.location}): ${data.need} [${data.status}]`;
-
-    // volunteer control buttons
-    const inProgressBtn = document.createElement("button");
-inProgressBtn.textContent = "Mark In Progress";
-inProgressBtn.style.margin = "5px";
-inProgressBtn.addEventListener("click", () => {
-  update(ref(db, "requests/" + child.key), { status: "In Progress" });
-});
-
-const completedBtn = document.createElement("button");
-completedBtn.textContent = "Mark Completed";
-completedBtn.style.margin = "5px";
-completedBtn.addEventListener("click", () => {
-  update(ref(db, "requests/" + child.key), { status: "Completed" });
-});
-
-li.appendChild(inProgressBtn);
-li.appendChild(completedBtn);
-    requestsList.appendChild(li);
+function loadRequestsForVolunteers() {
+  onValue(ref(db, "requests/"), (snapshot) => {
+    requestsList.innerHTML = "";
+    snapshot.forEach((child) => {
+      const data = child.val();
+      const li = document.createElement("li");
+      li.textContent = `${data.name} (${data.location}): ${data.need} | Contact: ${data.contact}`;
+      requestsList.appendChild(li);
+    });
   });
-});
+}
+
+// Initialize data
+loadRequestsForVolunteers();
