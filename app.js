@@ -40,7 +40,7 @@ submitBtn.addEventListener("click", () => {
   localStorage.setItem("userName", name);
 
   if (!name || !need || !location) {
-    alert("Please fill in all required fields.");
+    alert("Fill in ALL information!");
     return;
   }
 
