@@ -37,6 +37,7 @@ submitBtn.addEventListener("click", () => {
   const need = needInput.value.trim();
   const location = locationInput.value;
   const contact = contactInput.value.trim();
+  localStorage.setItem("userName", name);
 
   if (!name || !need || !location) {
     alert("Please fill in all required fields.");
@@ -91,6 +92,11 @@ function loadRequestsForVolunteers() {
       requestsList.appendChild(li);
     });
   });
+}
+
+const savedName = localStorage.getItem("userName");
+if (savedName) {
+  loadMyRequests(savedName);
 }
 
 // Initialize data

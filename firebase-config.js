@@ -1,7 +1,7 @@
 export const firebaseConfig = {
   apiKey: "AIzaSyDBevOdYoCirgpedIlOG6mu2ZUwtzCCYuo",
   authDomain: "flood-services-site.firebaseapp.com",
-  databaseURL: "https://flood-services-site-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  databaseURL: "https://flood-services-site-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "flood-services-site",
   storageBucket: "flood-services-site.firebasestorage.app",
   messagingSenderId: "754979790505",
